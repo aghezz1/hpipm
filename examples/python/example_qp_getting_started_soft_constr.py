@@ -77,6 +77,7 @@ dim.set('nbu', nbu, 0, N-1) # number of input bounds
 #dim.set('ng', nx, 0)
 dim.set('nbx', nbx, N)
 dim.set('ns', ns, N)
+dim.set('nsbx', ns, N)
 
 # print to shell
 print("HPIPM print C dims")
@@ -136,8 +137,11 @@ qp.set('ux', x0, 0)
 #qp.set('C', Jx, 0)
 #qp.set('lg', x0, 0)
 #qp.set('ug', x0, 0)
+
 qp.set('Jx', Jx, N)
 qp.set('Jsx', Jsx, N)
+qp.set('lx', 0*x0, N)
+qp.set('ux', 0*x0, N)
 qp.set('Zl', Zl, N)
 qp.set('Zu', Zu, N)
 qp.set('zl', zl, N)
