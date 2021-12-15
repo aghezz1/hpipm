@@ -110,10 +110,12 @@ R = np.array([1]).reshape(nu,nu)
 Jx = np.array([1, 0, 0, 1]).reshape(nbx,nx)
 x0 = np.array([1, 1]).reshape(nx,1)
 Jsx = np.array([1, 0, 0, 1]).reshape(nbx,ns)
-Zl = np.array([0e2, 0e2]).reshape(ns,1)
-Zu = np.array([0e2, 0e2]).reshape(ns,1)
-zl = np.array([1e2, 1e2]).reshape(ns,1)
-zu = np.array([1e2, 1e2]).reshape(ns,1)
+
+Zl = 0 * np.array([1e2, 1e2]).reshape(ns,1)
+Zu = 0 * np.array([1e2, 1e2]).reshape(ns,1)
+zl = 1 * np.array([1e2, 1e2]).reshape(ns,1)
+zu = 1 * np.array([1e2, 1e2]).reshape(ns,1)
+
 Ju = np.array([1]).reshape(nbu,nu)
 lbu = np.array([-1.0]).reshape(nbu,1)
 ubu = np.array([1.0]).reshape(nbu,1)
@@ -231,7 +233,7 @@ res_comp = solver.get('max_res_comp')
 iters = solver.get('iter')
 stat = solver.get('stat')
 if(travis_run!='true'):
-	print('\nsolver statistics:\n')
+	solver.print_statistics()
 	print('ipm return = {0:1d}\n'.format(status))
 	print('ipm max res stat = {:e}\n'.format(res_stat))
 	print('ipm max res eq   = {:e}\n'.format(res_eq))
@@ -239,10 +241,6 @@ if(travis_run!='true'):
 	print('ipm max res comp = {:e}\n'.format(res_comp))
 	print('ipm iter = {0:1d}\n'.format(iters))
 	print('stat =')
-	print('\titer\talpha_aff\tmu_aff\t\tsigma\t\talpha_prim\talpha_dual\tmu\t\tres_stat\tres_eq\t\tres_ineq\tres_comp')
-	for ii in range(iters+1):
-		print('\t{:d}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}'.format(ii, stat[ii][0], stat[ii][1], stat[ii][2], stat[ii][3], stat[ii][4], stat[ii][5], stat[ii][6], stat[ii][7], stat[ii][8], stat[ii][9]))
-	print('')
 
 
 
