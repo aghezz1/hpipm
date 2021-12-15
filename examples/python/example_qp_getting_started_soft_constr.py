@@ -79,7 +79,8 @@ dim.set('nbx', nbx, N)
 dim.set('ns', ns, N)
 
 # print to shell
-#dim.print_C_struct()
+print("HPIPM print C dims")
+dim.print_C_struct()
 # codegen
 if codegen_data:
 	dim.codegen('ocp_qp_data.c', 'w')
@@ -146,7 +147,8 @@ qp.set('lbu', lbu, 0, N-1)
 qp.set('ubu', ubu, 0, N-1)
 
 # print to shell
-#qp.print_C_struct()
+print("QP formulation HPIPM C print")
+qp.print_C_struct()
 # codegen
 if codegen_data:
 	qp.codegen('ocp_qp_data.c', 'a')
