@@ -189,42 +189,32 @@ solver.solve(qp, qp_sol)
 end_time = time.time()
 if(travis_run!='true'):
 	print('solve time {:e}'.format(end_time-start_time))
-
-
-if(travis_run!='true'):
+	print("HPIPM solution C print:")
 	qp_sol.print_C_struct()
 
-# extract and print sol
-# inputs
-if(travis_run!='true'):
+	# extract and print sol
+	# inputs
 	print('u =')
-u = qp_sol.get('u', 0, N)
-for i in range(N+1):
-	if(travis_run!='true'):
+	u = qp_sol.get('u', 0, N)
+	for i in range(N+1):
 		print(u[i])
 
-# states
-if(travis_run!='true'):
+	# states
 	print('x =')
-for i in range(N+1):
-	tmp = qp_sol.get('x', i)
-	if(travis_run!='true'):
+	for i in range(N+1):
+		tmp = qp_sol.get('x', i)
 		print(tmp)
 
-# slack of lower constraints
-if(travis_run!='true'):
+	# slack of lower constraints
 	print('sl =')
-sl = qp_sol.get('sl', 0, N)
-for i in range(N+1):
-	if(travis_run!='true'):
+	sl = qp_sol.get('sl', 0, N)
+	for i in range(N+1):
 		print(sl[i])
 
-# slack of upper constraints
-if(travis_run!='true'):
+	# slack of upper constraints
 	print('su =')
-su = qp_sol.get('su', 0, N)
-for i in range(N+1):
-	if(travis_run!='true'):
+	su = qp_sol.get('su', 0, N)
+	for i in range(N+1):
 		print(su[i])
 
 
