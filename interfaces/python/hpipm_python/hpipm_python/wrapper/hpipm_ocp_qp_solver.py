@@ -101,5 +101,12 @@ class hpipm_ocp_qp_solver:
 		self.__hpipm.d_ocp_qp_ipm_get(c_char_p(field_name_b), self.ipm_ws_struct, tmp)
 		return res[0][0]
 
-
+	def print_statistics(self):
+		print('\nsolver statistics:\n')
+		stat = self.get('stat')
+		iters = self.get('iter')
+		print('\titer\talpha_aff\tmu_aff\t\tsigma\t\talpha_prim\talpha_dual\tmu\t\tres_stat\tres_eq\t\tres_ineq\tres_comp')
+		for ii in range(iters+1):
+			print('\t{:d}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}\t{:e}'.format(ii, stat[ii][0], stat[ii][1], stat[ii][2], stat[ii][3], stat[ii][4], stat[ii][5], stat[ii][6], stat[ii][7], stat[ii][8], stat[ii][9]))
+		print('')
 
