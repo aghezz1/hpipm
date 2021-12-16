@@ -57,7 +57,7 @@ travis_run = os.getenv('TRAVIS_RUN')
 codegen_data = 1; # export qp data in the file ocp_qp_data.c for use from C examples
 
 
-bigM = 1e4
+bigM = 1e3
 
 # dim
 N = 1
@@ -76,11 +76,11 @@ dim.set('nu', nu, 0)    # number of inputs
 dim.set('nbx', nbx, 0)  # number of state bounds
 dim.set('nbu', nbu, 0)  # number of input bounds
 
-dim.set('nu', 2*ns, N)  # number of inputs
-dim.set('nbu', 2*ns, N) # number of input bounds
+dim.set('nu', 2*ns, N)  
+dim.set('nbu', 2*ns, N) 
 dim.set('nbx', nbx, N)
 
-dim.set('ng', 2*ns, N)
+dim.set('ng', 2*ns, N)  # number of inequality constraints
 
 
 
@@ -140,30 +140,33 @@ qp.set('A', A, 0, N-1)
 qp.set('B', B, 0, N-1)
 #qp.set('b', [b, b, b, b, b])
 qp.set('Q', Q, 0, N)
-qp.set('S', S, 0, N-1)
 
+# qp.set('S', S, 0)
 qp.set('R', R, 0)
-qp.set('R', np.block([[Zl, np.zeros((nx,1))], [np.zeros((nx, 1)), Zu]]), N)
+
+qp.set('R', np.diag(np.concatenate([Zl.squeeze(), Zu.squeeze()])), N)
 
 qp.set('Jx', Jx, 0)
 qp.set('lx', x0, 0)
 qp.set('ux', x0, 0)
 
-qp.set('C', C, N)
-qp.set('D', D, N)
-qp.set('lg', np.array([0, 0, -bigM, -bigM])[...,np.newaxis], N)
-qp.set('ug', np.array([bigM, bigM, 0, 0])[...,np.newaxis], N)
+qp.set('Ju', Ju, 0)
+qp.set('lbu', lbu, 0)
+qp.set('ubu', ubu, 0)
 
 qp.set('Jx', Jx, N)
 qp.set('lx', 0*x0, N)
 qp.set('ux', 0*x0, N)
 
-qp.set('Ju', Ju, 0)
-qp.set('lbu', lbu, 0)
-qp.set('ubu', ubu, 0)
-
+qp.set('Ju', np.eye(4), N)
 qp.set('lbu', np.zeros((2*ns,1)), 1)
 qp.set('ubu', bigM*np.ones((2*ns,1)), 1)
+
+qp.set('C', C, N)
+qp.set('D', D, N)
+qp.set('lg', np.array([0, 0, -bigM, -bigM]).reshape(2*ns, 1), N)
+qp.set('ug', np.array([bigM, bigM, 0, 0]).reshape(2*ns, 1), N)
+
 
 # print to shell
 print("QP formulation HPIPM C print")
@@ -256,7 +259,7 @@ if(travis_run!='true'):
 	print('stat =')
 
 
-
+import pdb; pdb.set_trace()
 if status==0:
 	print('\nsuccess!\n')
 else:
