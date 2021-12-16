@@ -136,15 +136,12 @@ ubu = np.array([1.0]).reshape(nbu,1)
 # qp
 qp = hpipm_ocp_qp(dim)
 
+# Time instant 0
 qp.set('A', A, 0, N-1)
 qp.set('B', B, 0, N-1)
-#qp.set('b', [b, b, b, b, b])
+
 qp.set('Q', Q, 0, N)
-
-# qp.set('S', S, 0)
 qp.set('R', R, 0)
-
-qp.set('R', np.diag(np.concatenate([Zl.squeeze(), Zu.squeeze()])), N)
 
 qp.set('Jx', Jx, 0)
 qp.set('lx', x0, 0)
@@ -154,13 +151,16 @@ qp.set('Ju', Ju, 0)
 qp.set('lbu', lbu, 0)
 qp.set('ubu', ubu, 0)
 
+# Time instant 1
+qp.set('R', np.diag(np.concatenate([Zl.squeeze(), Zu.squeeze()])), N)
+
 qp.set('Jx', Jx, N)
 qp.set('lx', 0*x0, N)
 qp.set('ux', 0*x0, N)
 
-qp.set('Ju', np.eye(4), N)
-qp.set('lbu', np.zeros((2*ns,1)), 1)
-qp.set('ubu', bigM*np.ones((2*ns,1)), 1)
+qp.set('Ju', np.eye(2*ns), N)
+qp.set('lbu', np.zeros((2*ns,1)), N)
+qp.set('ubu', bigM*np.ones((2*ns,1)), N)
 
 qp.set('C', C, N)
 qp.set('D', D, N)
