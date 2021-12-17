@@ -155,8 +155,8 @@ qp.set('ubu', ubu, 0)
 qp.set('R', np.diag(np.concatenate([Zl.squeeze(), Zu.squeeze()])), N)
 
 qp.set('Jx', Jx, N)
-qp.set('lx', 0*x0, N)
-qp.set('ux', 0*x0, N)
+qp.set('lx', -bigM, N)
+qp.set('ux', bigM, N)
 
 qp.set('Ju', np.eye(2*ns), N)
 qp.set('lbu', np.zeros((2*ns,1)), N)
@@ -164,8 +164,8 @@ qp.set('ubu', bigM*np.ones((2*ns,1)), N)
 
 qp.set('C', C, N)
 qp.set('D', D, N)
-qp.set('lg', np.array([0, 0, -bigM, -bigM]).reshape(2*ns, 1), N)
-qp.set('ug', np.array([bigM, bigM, 0, 0]).reshape(2*ns, 1), N)
+qp.set('lg', np.array([0, 0, -bigM, -bigM]).reshape(2*nx, 1), N)
+qp.set('ug', np.array([bigM, bigM, 0, 0]).reshape(2*nx, 1), N)
 
 
 # print to shell
@@ -258,13 +258,11 @@ if(travis_run!='true'):
 	print('ipm iter = {0:1d}\n'.format(iters))
 	print('stat =')
 
-
-import pdb; pdb.set_trace()
 if status==0:
 	print('\nsuccess!\n')
 else:
 	print('\nSolution failed, solver returned status {0:1d}\n'.format(status))
 
-
+import pdb; pdb.set_trace()
 
 sys.exit(int(status))
