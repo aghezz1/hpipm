@@ -77,7 +77,7 @@ dim.set('nbu', nbu, 0, N-1) # number of input bounds
 #dim.set('ng', nx, 0)
 dim.set('nbx', nbx, N)
 dim.set('ns', ns, N)
-dim.set('nsbx', ns, N)
+# dim.set('nsbx', ns, N)
 
 # print to shell
 print("HPIPM print C dims")
@@ -111,10 +111,10 @@ Jx = np.array([1, 0, 0, 1]).reshape(nbx,nx)
 x0 = np.array([1, 1]).reshape(nx,1)
 Jsx = np.array([1, 0, 0, 1]).reshape(nbx,ns)
 
-Zl = 0 * np.array([1e2, 1e2]).reshape(ns,1)
-Zu = 0 * np.array([1e2, 1e2]).reshape(ns,1)
-zl = 1 * np.array([1e2, 1e2]).reshape(ns,1)
-zu = 1 * np.array([1e2, 1e2]).reshape(ns,1)
+Zl = 1 * np.array([1e2, 1e2]).reshape(ns,1)
+Zu = 1 * np.array([1e2, 1e2]).reshape(ns,1)
+zl = 0 * np.array([1e2, 1e2]).reshape(ns,1)
+zu = 0 * np.array([1e2, 1e2]).reshape(ns,1)
 
 Ju = np.array([1]).reshape(nbu,nu)
 lbu = np.array([-1.0]).reshape(nbu,1)
